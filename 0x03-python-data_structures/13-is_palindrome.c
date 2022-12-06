@@ -1,5 +1,6 @@
 /*
  * File: 13-is_palindrome.c
+ * Auth: Vasco Eti
  */
 
 #include "lists.h"

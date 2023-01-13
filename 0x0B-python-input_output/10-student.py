@@ -1,28 +1,30 @@
 #!/usr/bin/python3
-"""Student
+"""
+===============================
+module with the class Student
+===============================
 """
 
 
 class Student:
-    """Contains student data
-    """
+    """class with methods to_json for retrieves dictionary"""
 
     def __init__(self, first_name, last_name, age):
+        """method for initialized all atributes"""
+
         self.first_name = first_name
         self.last_name = last_name
         self.age = age
 
     def to_json(self, attrs=None):
-        """Retrieves dictionary of Student with conditions to filter
-        """
+        """method for retrieve a dictionary representation for a
+        student instance"""
 
-        if attrs == None or type(attrs) != list:
+        if attrs is None:
             return self.__dict__
-        else:
-            temp = {}
-            for elem in attrs:
-                if type(elem) != str:
-                    return self.__dict__
-                if elem in self.__dict__.keys():
-                    temp[elem] = self.__dict__[elem]
-            return temp
+        dic = {}
+        for key, value in self.__dict__.items():
+            for i in attrs:
+                if key == i:
+                    dic[key] = value
+        return dic

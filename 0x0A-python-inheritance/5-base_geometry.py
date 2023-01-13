@@ -1,9 +1,11 @@
 #!/usr/bin/python3
 """
 ===================================
-class BaseGeometry
+module with class BaseGeometry
 ===================================
 """
 
+
 class BaseGeometry:
+    """empty class"""
     pass

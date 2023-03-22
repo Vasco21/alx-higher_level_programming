@@ -7,7 +7,6 @@ const myVar = [
   'Javascript is amazing'
 ];
 
-for (let i = 0; i < myVar.length; i++) 
-{
+for(let i = 0; i < myVar.length; i++){
 	console.log(myVar[i]);
 }

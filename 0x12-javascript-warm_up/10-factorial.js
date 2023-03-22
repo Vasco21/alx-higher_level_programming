@@ -1,5 +1,5 @@
 #!/usr/bin/node
-/* comment */
+/* prints a factorial */
 function factorial (a) {
   if (a > 0) {
     return (a * factorial(a - 1));

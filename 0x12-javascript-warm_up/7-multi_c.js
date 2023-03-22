@@ -1,5 +1,5 @@
 #!/usr/bin/node
-/* comment */
+/* x times “C is fun */
 if (isNaN(process.argv[2])) {
   console.log('Missing number of occurences');
 } else {

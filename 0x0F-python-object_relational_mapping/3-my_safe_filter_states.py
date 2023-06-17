@@ -1,42 +1,45 @@
 #!/usr/bin/python3
-"""
-This script takes in an argument and
-displays all values in the states
-where `name` matches the argument
-from the database `hbtn_0e_0_usa`.
-
-This time the script is safe from
-MySQL injections!
-"""
-
+"""Display name argument of states table"""
 import MySQLdb
 from sys import argv
 
-if __name__ == '__main__':
+
+def filter__names():
+    """Takes arguments argv to list from database
+    Only lists with states that start with  N
+        argv[1]: mysql username
+        argv[2]: mysql password
+        argv[3]: database name
     """
-    Access to the database and get the states
-    from the database.
-    """
+    db = MySQLdb.connect(host="localhost",
+                         port=3306,
+                         user=argv[1],
+                         passwd=argv[2],
+                         db=argv[3],
+                         charset="utf8",
+                         )
 
-    db = MySQLdb.connect(host="localhost", user=argv[1], port=3306,
-                         passwd=argv[2], db=argv[3])
+    # declaring arguments passed, with query.
+    name = argv[4]
 
-    with db.cursor() as cur:
-        cur.execute("""
-            SELECT
-                *
-            FROM
-                states
-            WHERE
-                name LIKE BINARY %(name)s
-            ORDER BY
-                states.id ASC
-        """, {
-            'name': argv[4]
-        })
+    # Getting a cursor in MySQLdb python
+    cur = db.cursor()
 
-        rows = cur.fetchall()
+    # Executing db queries
+    cur.execute("SELECT * FROM states WHERE name=%s ORDER BY id ASC",
+                (name,))
 
-    if rows is not None:
-        for row in rows:
+    # fetches all the rows of a query result
+    query_rows = cur.fetchall()
+
+    # Printing the result one in one
+    for row in query_rows:
+        if row[1] == name:
             print(row)
+
+    cur.close()
+    db.close()
+
+
+if __name__ == '__main__':
+    filter__names()

@@ -1,28 +1,41 @@
 #!/usr/bin/python3
-"""
-This script takes in an argument and
-displays all values in the states
-where `name` matches the argument
-from the database `hbtn_0e_0_usa`.
-"""
-
+"""Display name argument of states table"""
 import MySQLdb
 from sys import argv
 
-if __name__ == '__main__':
-    """
-    Access to the database and get the states
-    from the database.
-    """
 
-    db = MySQLdb.connect(host="localhost", user=argv[1], port=3306,
-                         passwd=argv[2], db=argv[3])
+def filter__names():
+    """Takes arguments argv to list from database
+    Only lists with states that start with  N
+        argv[1]: mysql username
+        argv[2]: mysql password
+        argv[3]: database name
+    """
+    db = MySQLdb.connect(host="localhost",
+                         port=3306,
+                         user=argv[1],
+                         passwd=argv[2],
+                         db=argv[3],
+                         charset="utf8",
+                         )
 
+    # Getting a cursor in MySQLdb python
     cur = db.cursor()
-    cur.execute("SELECT * FROM states \
-                 WHERE name LIKE BINARY '{}' \
-                 ORDER BY states.id ASC".format(argv[4]))
-    rows = cur.fetchall()
 
-    for row in rows:
+    # Executing db queries
+    cur.execute("SELECT * FROM states WHERE BINARY name='{:s}'\
+                ORDER BY id ASC".format(argv[4]))
+
+    # fetches all the rows of a query result
+    query_rows = cur.fetchall()
+
+    # Printing the result one in one
+    for row in query_rows:
         print(row)
+
+    cur.close()
+    db.close()
+
+
+if __name__ == '__main__':
+    filter__names()

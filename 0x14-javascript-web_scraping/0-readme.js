@@ -1,7 +1,5 @@
 #!/usr/bin/node
 
-// Write a script that reads and prints the content of a file 
-
 const fs = require('fs');
 
 // Check if the file path argument is provided
@@ -16,8 +14,8 @@ const filePath = process.argv[2];
 // Read and print the content of the file
 fs.readFile(filePath, 'utf-8', (err, content) => {
   if (err) {
-    console.error("Error reading the file:", err);
+    console.error(err);
   } else {
-    console.log("File content:\n", content);
+    console.log(content);
   }
 });
